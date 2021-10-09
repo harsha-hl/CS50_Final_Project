@@ -1,0 +1,118 @@
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+        <link href="/static/styles.css" rel="stylesheet">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Kalam:wght@700&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet">
+        <link href="/static/images/titleLogo.png" rel="icon">
+        <script src="/static/scripts.js"></script>
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css" rel="stylesheet">
+
+    
+
+    <title>H&A : {% block title %} {% endblock %}</title>
+</head>
+<body >
+    <nav class="navbar navbar-inverse  navbar-fixed-top" id="xyz">
+        <div class="container-fluid" style="background-color:black;">
+          <div class="navbar-header">
+            <button style="margin-top: 12.5px;" type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+              <span class="icon-bar"  ></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a style="margin-top: -10px;" class="navbar-brand" href="#"><strong><img src="/static/images/logo3.png" height="49px"></strong></a>
+          </div>
+          <div class="collapse navbar-collapse" id="myNavbar">
+            <ul class="nav navbar-nav">
+              <li><a href="#">Home</a></li>
+
+            {% if session.user_id %}
+            <li><a href="#">About</a></li>
+            <li><a href="#">Help</a></li>
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="#"><span class="glyphicon glyphicon-user"></span> My account</a></li>
+            <li><a href="#"><img src="/static/images/shopcart.png" width="30px" height="30px"></a></li>
+          </ul>          
+        </div>
+      </div>
+    </nav>
+
+            {% else %}
+            <li class="dropdown">
+              <a class="dropdown-toggle" data-toggle="dropdown" href="#">Products<span class="caret"></span></a>
+              <ul class="dropdown-menu" style="background-color: black;">
+                <li><a style="background-color: black;" href="#">Crocs</a></li>
+                <li><a style="background-color: black;" href="#">Sneakers</a></li>
+                <li><a style="background-color: black;" href="#">Sports Shoes</a></li>
+              </ul>
+            </li>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Help</a></li>
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+            <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>    
+              
+    {% endif %}
+
+    {% if get_flashed_messages() %}
+        <header>
+            <div class="alert alert-primary border text-center" role="alert">
+                {{ get_flashed_messages() | join(" ") }}
+            </div>
+        </header>
+    {% endif %}
+
+    <main>
+        {% block main %}{% endblock %}
+    </main>
+
+    <footer>
+    <div class="footer">
+      <div class="box">
+        <div class="row">
+          <div class="footer-col-1">
+            <h3>Download Our App</h3>
+            <p>Download App for Android and ios.</p>
+            <div class="app-logo">
+              <img src="/static/images/play-store.png">
+              <img src="/static/images/app-store.png">
+            </div>
+          </div>
+          <div class="footer-col-2">
+            <img src="/static/images/logo3.png" height="90px">
+             <p>When style meets comfort.</p>
+          </div>
+          <div class="footer-col-3">
+            <h3 >About <span class="ha">H&A</span></h3>
+            <span>News</span><br>
+            <span>Careers</span><br>
+            <span>Investors</span><br>
+            <span>Sustainability</span><br>
+          </div>
+          <div class="footer-col-4">
+            <h3 >Join Us</h3>
+            <span><i class="fab fa-facebook handles"></i></span><br>
+            <span><i class="fab fa-instagram handles" ></i></span><br>
+            <span><i class="fab fa-twitter handles" ></i></span><br>
+            <span><i class="fab fa-youtube handles" ></i></span><br>
+          </div>
+        </div>
+        <hr style="border-top: 1px solid #252424;">
+        <p><span style="color: white;"><i class="fas fa-map-marker-alt"></i> Bangalore, India</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&#169; 2021 <span class="ha">H&A</span>, Inc. All Rights Reserved</p>
+      </div>
+    </div>
+    </footer>
+</body>
+</html>
