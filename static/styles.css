@@ -55,6 +55,33 @@ body{
   position: relative;
 }
 
+.vbox{
+  width: 100%;
+  height: 14vh;
+  position: relative;
+}
+
+.vbox video{
+  width: 100%;
+  height: 100%;
+}
+
+.vtext{
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: black;
+  height: 100%;
+  width: 100%;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 100px !important;
+  font-weight: 900;
+  mix-blend-mode: multiply;
+}
+
 .text-box{
   color: #fff;
   position: absolute;

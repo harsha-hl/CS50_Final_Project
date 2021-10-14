@@ -43,3 +43,4 @@ def index():
     """Show homepage of website"""
 
     return render_template("index.html")
+
