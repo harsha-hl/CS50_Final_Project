@@ -1,7 +1,7 @@
 body{
     margin: 0;
     padding: 0;
-    background-color: #b0bec5;
+    background-color: white;
     font-family: 'Oswald', sans-serif;
 
 }
@@ -57,13 +57,14 @@ body{
 
 .vbox{
   width: 100%;
-  height: 14vh;
+  min-height: 100px;
   position: relative;
 }
 
 .vbox video{
   width: 100%;
   height: 100%;
+  position: absolute;
 }
 
 .vtext{
@@ -73,7 +74,7 @@ body{
   background: black;
   height: 100%;
   width: 100%;
-  color: #fff;
+  color: white;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -85,23 +86,23 @@ body{
 .text-box{
   color: #fff;
   position: absolute;
-  top: 10%;
+  top: 60px;
 }
 
 .text-box h1{
   font-size: 11.5vw;
   line-height: 11vw;
-  margin-left: 0px;
+  margin-left: 5px;
   color: transparent;
   -webkit-text-stroke: 1px #fff;
   background: url(/static/images/logos/back.png);
   -webkit-background-clip: text;
-  background-position: 0 0;
+  background-position: 0 -40px;
   animation: back 10s  cubic-bezier(0.175, 0.885, 0.32, 1.275) infinite;
 }
 @keyframes back{
   100%{
-    background-position: 2000px 0;
+    background-position: 2000px -40px;
   }
 }
 
@@ -112,7 +113,7 @@ body{
   background: white;
   color: black;
   padding: 8px 25px;
-  margin: 30px 5px;
+  margin: 30px 10px;
   border-radius: 30px;
 }
 
@@ -120,6 +121,12 @@ body{
   text-decoration: none;
   background: black;
   color: white;
+}
+
+#j:hover{
+  text-decoration: none;
+  background: #bebcbc !important;
+  color: #000 !important;
 }
 
 .inner-box{
@@ -145,6 +152,7 @@ body{
   align-items: center;
   flex-wrap: wrap;
   justify-content: space-around;
+
 }
 
 .footer{
@@ -164,17 +172,9 @@ body{
 }
 
 .footer-col-1, .footer-col-2, .footer-col-3, .footer-col-4{
+  flex: 1;
   min-width:250px;
-  margin-bottom: 20px;
-}
-
-.footer-col-1{
-  flex: 1;
-  text-align: center;
-}
-
-.footer-col-2{
-  flex: 1;
+  margin-bottom: 30px;
   text-align: center;
 }
 
@@ -186,11 +186,6 @@ body{
 
 .footer-col-2 img:hover{
   filter: grayscale(0%);
-}
-
-.footer-col-3, .footer-col-4{
-  flex: 1;
-  text-align: center;
 }
 
 .footer-col-3 span:hover, .footer-col-4 span:hover{
@@ -208,6 +203,89 @@ body{
 .handles{
   font-size: 30px;
   margin-bottom: 10px;
+}
+
+.categories{
+  margin: 30px;
+}
+
+.col-3{
+  flex: 1;
+  text-align: center;
+  min-width: 250px;
+  margin-bottom: 30px;
+}
+
+.col-3 img{
+  padding: 0 8px;
+  width: 100%;
+  max-width: 300px;
+  height: 385px;
+  transition: transform 0.5s;
+}
+
+.col-3 img:hover {
+  cursor: pointer;
+  transform: translateY(-10px);
+}
+
+.col-3 img:hover .under::after{
+  width: 160px;
+}
+
+
+.small-container{
+  max-width: 1080px;
+  margin: auto;
+  padding-left: 25px;
+  padding-right: 25px;
+}
+
+.under{
+  font-size: 40px;
+  text-align: center;
+  color: black;
+  font-weight: bolder;
+  position: relative;
+}
+
+.under::after{
+  content: '';
+  width: 100px;
+  height: 4px;
+  position: absolute;
+  bottom: -7px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: orange;
+  transition: width 0.3s;
+}
+
+.under:hover::after{
+  width: 160px;
+}
+
+.imlink{
+  position: relative;
+}
+
+.btext{
+  position: relative;
+}
+
+.col-2{
+  flex-basis: 50%;
+  min-width: 300px;
+}
+
+.col-2 img{
+  max-width: 100%;
+  padding-top: 0px;
+}
+
+.jordan{
+  background:  black;
+  padding: 50px 0;
 }
 
 
