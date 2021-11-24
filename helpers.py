@@ -2,6 +2,7 @@ import os
 import requests
 import urllib.parse
 
+from string import capwords
 from flask import redirect, render_template, request, session
 from functools import wraps
 
@@ -37,3 +38,13 @@ def login_required(f):
 def rupee(value):
     """Format value as Rupee."""
     return f"\u20B9 {float(value):,.2f}"
+
+def name(a):
+    a = (a.rpartition('/')[2]).rpartition('.')[0]
+    b=""
+    for i in a:
+        if i == '-' or i =='_':
+            b = b+" "
+        else:
+            b = b+i
+    return capwords(b)

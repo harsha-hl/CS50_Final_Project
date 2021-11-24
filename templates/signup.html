@@ -1,0 +1,81 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Sign UP
+{% endblock %}
+
+{% block main %}
+    <div class="account-page">
+        <div class="container">
+            <div class="row">
+                
+                <div class="col-2" style="flex: 1;">
+                    <div class="form-container">
+                        <div class="form-btn">
+                            <a href="/signup" style="text-decoration: none;"><span class="under2" style="font-weight: lighter;font-size: 30px;">Sign Up</span></a>
+                            <a href="/login" style="text-decoration: none;"><span style="padding-left: 30px; color: white; font-size: 20px;">Login</span></a>
+                        </div>
+                        <form name = "sign" onsubmit="return checkform()" action = "/signup" method = "post"> 
+                            <input autocomplete="off" autofocus name="username" placeholder="Username" type="text">
+                            <input name="password" placeholder="Password" type="password">
+                            <input name="confirmation" placeholder="Confirm Password" type="password">
+                            <button style="color: rgb(255, 255, 255) !important; background-color:rgb(0, 0, 0) !important; border-radius: 5px !important; padding: 8px 100px;" class="bton" type="submit">SIGN IN</button>                    
+                        </form>
+                    </div>
+                </div>
+                <div class="col-2" style="flex: 1;">
+                    <div id = "myalert" class="alert alert-info collapse">
+                        <a id="linkClose" href="#" class="close">&times;</a>
+                        <p id="mytext"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        $(document).ready(function(){
+            $('#linkClose').click(function(){
+                $('#myalert').hide('fade');
+            });
+        });
+
+        if("{{check}}" == 1){
+                mytext.innerHTML = "<strong> Sorry!  </strong> Username already taken.";
+                $('#myalert').show('fade');
+                setTimeout(function(){
+                    $('#myalert').hide('fade');
+                },5000);
+            }
+
+        function checkform(){
+            var flag = 1;
+            usr = document.sign.username.value;
+            pass = document.sign.password.value;
+            cpass = document.sign.confirmation.value;
+            text = document.getElementById('mytext');
+            if(!usr || !pass || !cpass){
+                mytext.innerHTML = "<strong> Incomplete!  </strong> Please enter all the details.";
+                flag = 0;
+            }
+            else if(pass.localeCompare(cpass) != 0){
+                mytext.innerHTML = "<strong> Passwords not matching!  </strong> Please enter same password.";
+                flag = 0;
+            }
+            else if(pass.length < 8){
+                mytext.innerHTML = "<strong> Password not strong!  </strong> Please enter password with more than 8 characters and having special characters and numbers for increased security.";
+                flag = 0;
+            }
+
+            if(flag){
+                document.sign.submit();   
+            }
+            else{
+                $('#myalert').show('fade');
+                setTimeout(function(){
+                    $('#myalert').hide('fade');
+                },5000);
+                return false;    
+            }
+        }
+    </script>
+{% endblock %}

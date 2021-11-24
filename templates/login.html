@@ -1,0 +1,78 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Login
+{% endblock %}
+
+{% block main %}
+
+<div class="account-page">
+    <div class="container">
+        <div class="row">
+            <div class="col-2"  style="flex: 1;">
+                <div class="form-container">
+                    <div class="form-btn">
+                        <a href="/signup" style="text-decoration: none;"><span style="padding-right: 30px; color: white; font-size: 20px;">Sign Up</span></a>
+                        <a href="/login" style="text-decoration: none;"><span class="under2" style="font-weight: lighter;font-size: 30px;">Login</span></a>
+                    </div>
+                    <form name = "sign" onsubmit="return checkform()" action = "/signup" method = "post">
+                        <input autocomplete="off" autofocus name="username" placeholder="Username" type="text">
+                        <input name="password" placeholder="Password" type="password"><br>
+                        <p style="color: #60adc5;">New to <span class="ha">H&A</span> ?<br><a style = "color: #60adc5; text-decoration: none;" href = "/signup">Sign Up now!</a></p>
+                        <button style="margin-top: 10px; color: white !important; background-color:black !important; border-radius: 5px !important; padding: 8px 100px;" class="btn" type="submit">LOG IN</button>                
+                    </form>
+                </div>
+            </div>
+            <div class="col-2" style="flex: 1;">
+                <div id = "myalert" class="alert alert-info collapse">
+                    <a id="linkClose" href="#" class="close">&times;</a>
+                    <p id="mytext"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function(){
+        $('#linkClose').click(function(){
+            $('#myalert').hide('fade');
+        });
+    });
+
+    if("{{check}}" == 1){
+        mytext.innerHTML = "<strong> Invalid Username!  </strong> Username doesn't exist.";           
+    }
+    else if("{{check}}" == 2){
+        mytext.innerHTML = "<strong> Invalid Password!  </strong> Password doesn't match username.";           
+    }
+
+    if("{{check}}"){
+        $('#myalert').show('fade');
+            setTimeout(function(){
+                $('#myalert').hide('fade');
+            },5000);
+    }
+
+    function checkform(){
+        var flag = 1;
+        usr = document.sign.username.value;
+        pass = document.sign.password.value;
+        text = document.getElementById('mytext');
+        if(!usr || !pass){
+            mytext.innerHTML = "<strong> Incomplete!  </strong> Please enter all the details.";
+            flag = 0;
+        }
+        if(flag){
+            document.sign.submit();   
+        }
+        else{
+            $('#myalert').show('fade');
+            setTimeout(function(){
+                $('#myalert').hide('fade');
+            },5000);
+            return false;    
+        }
+    }
+</script>
+
+{% endblock %}

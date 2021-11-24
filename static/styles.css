@@ -19,6 +19,7 @@ body{
   display: block;
   transition: top 0.3s;
 }
+
 #xyz a{
   margin-top: 5px;
   font-size: larger;
@@ -281,6 +282,12 @@ body{
 .col-2 img{
   max-width: 100%;
   padding-top: 0px;
+  transition: transform 0.5s;
+}
+
+.col-2 img:hover{
+  transform: translateY(-10px);
+  cursor: pointer;
 }
 
 .jordan{
@@ -356,5 +363,146 @@ body{
 .col-4:hover{
   transform: translateY(-10px);
   cursor: pointer;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
+.slide{
+  margin: 4px, 4px;
+  padding: 20px;
+  width: 100%;
+  display: flex;
+  overflow-x: auto;
+  overflow-y: hidden;
+  white-space: nowrap;
+}
+
+.slide img{
+  width:300px;
+  transition: transform 0.5s;
+}
+
+.slide img:hover{
+  transform: translateY(-8px);
+  cursor: pointer;
+}
+
+.col-m{
+  margin: 20px;
+  flex: 1; 
+  padding: 10px;
+  min-width: 200px;
+  margin-bottom: 50px;
+  transition: transform 0.5s;
+}
+
+.col-m img{
+  width: 100%;
+  min-height: 200px;
+}
+
+.col-m:hover{
+  transform: translateY(-10px);
+  cursor: pointer;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.col-z{
+  padding: 10px;
+  min-width: 300px;
+  margin-bottom: 50px;
+  transition: transform 0.5s;
+}
+
+.col-z img{
+  width: 100%;
+  min-height: 200px;
+}
+
+.col-z:hover{
+  transform: translateY(-10px);
+  cursor: pointer;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.img-fluid{
+  transition: transform 0.5s;
+}
+.img-fluid:hover{
+  cursor: pointer;
+  transform: translateY(-10px);
+}
+
+
+/* LOGIN / SIGNUP */
+
+.account-page{
+  padding: 100px 0 50px 0;
+  background-position:  center;
+  background-size: cover;
+  background-image: url("/static/images/nike_abstract.png");
+  width: 100%;
+  height: 1000px;
+  position: relative;
+  /*background: radial-gradient(#fff,#ffd6d6);*/
+}
+
+.form-container{
+  background: linear-gradient(-45deg, rgba(0,0,0,0.4)
+              0%, rgba(0,0,0,0.4) 25%, rgba(20, 81, 97, 0.6) 50%,
+              rgba(0,0,0,0.4) 75%, rgba(0, 0, 0, 0.4) 100%);
+  width: 300px;
+  height: 400px;
+  position: relative;
+  text-align: center;
+  padding: 20px 0;
+  margin: auto;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  transition: transform 0.5s;
+}
+.form-container:hover{
+  transform: translateY(-10px);
+}
+
+.under2{
+  font-size: 40px;
+  text-align: center;
+  color: white;
+  font-weight: bolder;
+  position: relative;
+}
+
+.under2::after{
+  content: '';
+  width: 50px;
+  height: 4px;
+  position: absolute;
+  bottom: -7px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgb(74, 166, 189);
+  transition: width 0.3s;
+}
+
+.under2:hover::after{
+  width: 80px;
+}
+
+.form-btn{
+  padding-bottom: 50px;
+}
+
+.form-container input{
+  margin-bottom: 20px;
+  background-color: rgb(255, 255, 255);
+  border-radius: 5px;
+  border-color: transparent;
+  outline: none;
+  color: rgb(0, 0, 0);
+}
+.form-container input:hover{
+  background-color: rgb(196, 201, 202);
+}
+::placeholder {
+  color: rgb(14, 13, 13);
+  opacity: 0.4;
+}
