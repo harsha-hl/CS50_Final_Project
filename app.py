@@ -56,6 +56,13 @@ def logout():
     #Redirect user to login form
     return redirect("/")
 
+@app.route("/productpage", methods=["GET", "POST"])
+def productpage():
+    if request.method == "POST":
+        return render_template("productpage.html")
+    else:
+        return render_template("productpage.html")
+
 
 @app.route("/signup", methods = ["GET", "POST"])
 def signup():
