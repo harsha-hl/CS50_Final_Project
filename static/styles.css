@@ -506,3 +506,13 @@ body{
   color: rgb(14, 13, 13);
   opacity: 0.4;
 }
+.cat_button{
+  font-size: 20px;
+  background-color: black;
+  border: none;
+  color: #2a2a2a; 
+  padding-left: 20px;
+}
+.cat_button:hover{
+  color: white;
+}

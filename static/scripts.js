@@ -11,37 +11,90 @@ document.addEventListener("DOMContentLoaded", function(){
     prevScrollpos = currentScrollPos;
   }
 
+  let choice1 = document.querySelectorAll(".crocs");
+  for(let i =0; i<choice1.length; i++)
+  {
+    choice1[i].addEventListener("click",function(){
+      localStorage.setItem("type", "Crocs");
+      localStorage.setItem("brand", "Crocs");
+    });
+  }
+
+  let choice2 = document.querySelectorAll(".sneakers");
+  for(let i =0; i<choice2.length; i++)
+  {
+    choice2[i].addEventListener("click",function(){
+      alert("Nike");
+      localStorage.setItem("type", "Sneakers");
+    });
+  }
+
+  let choice3 = document.querySelectorAll(".sports");
+  for(let i =0; i<choice3.length; i++)
+  {
+    choice3[i].addEventListener("click",function(){
+      localStorage.setItem("type", "Sports");
+    });
+  }
+
+  let choice4 = document.querySelectorAll(".nike");
+  for(let i =0; i<choice4.length; i++)
+  {
+    choice4[i].addEventListener("click",function(){
+      localStorage.setItem("brand", "Nike");
+    });
+  }
+
+  let choice5 = document.querySelectorAll(".adidas");
+  for(let i =0; i<choice5.length; i++)
+  {
+    choice5[i].addEventListener("click",function(){
+      alert("Adidas");
+      localStorage.setItem("brand", "Adidas");
+    });
+  }
+
   let images = document.querySelectorAll(".imagel");
   for(let i = 0; i < images.length; i++)
   {
     images[i].addEventListener("click",function(){
       let tmp = images[i].getAttribute("src");
       localStorage.setItem("source", tmp);
+      console.log("hello")
+      let cat ="";
+      if(tmp.includes("nikeSneakers"))cat = "Nike / Sneakers";
+      else if(tmp.includes("nikeSports"))cat = "Nike / Sports";
+      else if(tmp.includes("adidasSneakers"))cat = "Adidas / Sneakers";
+      else if(tmp.includes("adidasSports"))cat = "Adidas / Sports";
+      else cat = "Crocs";
       
-      let flag;
-      print(tmp)
-if(tmp.includes("nikeSneakers"))flag = "Nike / Sneakers";
-else if(tmp.includes("nikeSports"))flag = "Nike / Sports";
-else if(tmp.includes("adidasSneakers"))flag = "Adidas / Sneakers";
-else if(tmp.includes("adidasSports"))flag = "Adidas / Sports";
-else flag = "Crocs";
-
-
-let f = tmp.substring(tmp.lastIndexOf("/")+1,tmp.indexOf("."));
-f = f.replace(/-/g, ' ');
-let y="";
-y = y+f[0].toUpperCase()
-for(var i=1;i<f.length;i++)
-{
-    if(f[i]==' ')
-    {y = y+" "+f[i+1].toUpperCase()
-    i = i+1
-    }
-    else y = y + f[i]
-}
-localStorage.setItem("c", flag);
-localStorage.setItem("n", y);
-tmp = tmp.replace(".","1.");
+      let z = "";
+      let x = tmp.substring(tmp.lastIndexOf("/")+1,tmp.lastIndexOf("."));
+      if(x.charAt(4)>= '0' && x.charAt(4)<= '9')
+      {
+        z+= x.substring(0,5);
+        x = x.substring(5);
+        
+      } 
+      else
+      {
+        z+= x.substring(0,4);
+        x= x.substring(4);
+      } 
+      let y = "";
+      y+= x[0].toUpperCase();
+      for(let i=1;x[i];i++)
+      {
+        if(x[i] == '_' || x[i] == '-' || x[i] == ' ')
+        {
+          y+= ' ' + x[++i].toUpperCase();
+        }
+        else y+= x[i];
+      }
+      localStorage.setItem("price", z);
+      localStorage.setItem("category", cat);
+      localStorage.setItem("name", y);
+      tmp = tmp.replace(/.([^.]*)$/, "1." + '$1');
       localStorage.setItem("source1", tmp);
     });
     

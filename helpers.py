@@ -47,4 +47,14 @@ def name(a):
             b = b+" "
         else:
             b = b+i
-    return capwords(b)
+    if b[4].isdigit():
+        return(capwords(b[5:]))
+    else:
+        return(capwords(b[4:]))
+
+def cost(a):
+    a = (a.rpartition('/')[2]).rpartition('.')[0]
+    if a[4].isdigit():
+        return(int(a[0:5]))
+    else:
+        return(int(a[0:4]))

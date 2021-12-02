@@ -1,0 +1,143 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Product Details
+{% endblock %}
+
+{% block main %}
+
+{% for shoe in shoes %}
+<a href="/productpage"><img class = "imagel" src=" {{ shoe["name"] }} "></a>
+
+{% endfor %}
+
+{% if 6==7 %}
+     <p> Something is True </p>
+{% else %}
+     <p> Something is False </p>
+{% endif %}
+
+<div class="small-container">
+    <h1 class="under">Featured Products</h1><br><br>
+    <div class="row">
+        <div class="col-4">
+            <a href="/productpage"><img class = "imagel" src="/static/images/shoes/nikeSneakers/8555lebron-18-low-x-mimi-plange-daughters.jpg"></a>
+            <h4>Product Name</h4>
+            <p>{{1000 | rupee}}</p>
+            <div class="rating">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>             
+                <i class="fas fa-star-half-alt"></i>
+                <i class="far fa-star"></i>
+            </div>
+        </div>
+        <div class="col-4">
+            <img src="/static/images/shoes/nikeSneakers/8555lebron-18-low-x-mimi-plange-daughters.jpg">
+            <h4>Product Name</h4>
+            <p>{{1000 | rupee}}</p>
+            <div class="rating">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>             
+                <i class="fas fa-star-half-alt"></i>
+                <i class="far fa-star"></i>
+            </div>
+        </div>
+        <div class="col-4">
+            <img src="/static/images/shoes/nikeSneakers/8555lebron-18-low-x-mimi-plange-daughters.jpg">
+            <h4>Product Name</h4>
+            <p>{{1000 | rupee}}</p>
+            <div class="rating">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>             
+                <i class="fas fa-star-half-alt"></i>
+                <i class="far fa-star"></i>
+            </div>
+        </div>
+        <div class="col-4">
+            <img src="/static/images/shoes/nikeSneakers/8555lebron-18-low-x-mimi-plange-daughters.jpg">
+            <h4>Product Name</h4>
+            <p>{{1000 | rupee}}</p>
+            <div class="rating">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>             
+                <i class="fas fa-star-half-alt"></i>
+                <i class="far fa-star"></i>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-4">
+            <img src="/static/images/shoes/nikeSneakers/8555lebron-18-low-x-mimi-plange-daughters.jpg">
+            <h4>Product Name</h4>
+            <p>{{1000 | rupee}}</p>
+            <div class="rating">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>             
+                <i class="fas fa-star-half-alt"></i>
+                <i class="far fa-star"></i>
+            </div>
+        </div>
+        <div class="col-4">
+            <img src="/static/images/shoes/nikeSneakers/8555lebron-18-low-x-mimi-plange-daughters.jpg">
+            <h4>Product Name</h4>
+            <p>{{1000 | rupee}}</p>
+            <div class="rating">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>             
+                <i class="fas fa-star-half-alt"></i>
+                <i class="far fa-star"></i>
+            </div>
+        </div>
+        <div class="col-4">
+            <img src="/static/images/shoes/nikeSneakers/8555lebron-18-low-x-mimi-plange-daughters.jpg">
+            <h4>Product Name</h4>
+            <p>{{1000 | rupee}}</p>
+            <div class="rating">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>             
+                <i class="fas fa-star-half-alt"></i>
+                <i class="far fa-star"></i>
+            </div>
+        </div>
+        <div class="col-4">
+            <img src="/static/images/shoes/nikeSneakers/8888air-zoom-gtrun-basketball-shoes.jpeg">
+            <h4>Product Name</h4>
+            <p>{{1000 | rupee}}</p>
+            <div class="rating">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>             
+                <i class="fas fa-star-half-alt"></i>
+                <i class="far fa-star"></i>
+            </div>
+        </div>
+    </div>
+</div>
+<form action = "/products" method = "post"> 
+    <input autocomplete="off" autofocus name="username" placeholder="Username" type="text">
+    <input name="password" placeholder="Password" type="password">
+    <input name="confirmation" placeholder="Confirm Password" type="password">
+    <button style="color: rgb(255, 255, 255) !important; background-color:rgb(0, 0, 0) !important; border-radius: 5px !important; padding: 8px 100px;" class="bton" type="submit">SIGN IN</button>                    
+</form>
+<script>
+   
+
+
+
+   /* document.addEventListener("DOMContentLoaded",function(){
+    document.getElementById("pim").src = localStorage.getItem("source");
+    document.getElementById("category").innerHTML = localStorage.getItem("category");
+    document.getElementById("name").innerHTML = localStorage.getItem("name");
+    document.getElementById("price").innerHTML = "Rs. " + localStorage.getItem("price");
+    document.getElementById("pim1").src = localStorage.getItem("source1");
+    });
+    */
+ </script>
+{% endblock %}

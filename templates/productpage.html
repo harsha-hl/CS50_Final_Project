@@ -14,6 +14,7 @@
         <div class="col-2">
             <h4 id="category">Shoe</h4>
             <h2 id="name">Brand</h2>
+            <h3 id="price"></h3>
             <form action="/productpage" method="post">
                 <div class="form-group">
                     <input autocomplete="off" autofocus class="form-control" name="username" placeholder="Username" type="text">
@@ -30,22 +31,18 @@
 <div class="small-container">
     <div class="row">
         <img id="pim1" src="#" width="100%">
+        <img src="{{path}}">
     </div>
 </div>
 
 <script>
    
     document.addEventListener("DOMContentLoaded",function(){
-    let w = localStorage.getItem("source");
-    let x = localStorage.getItem("c");
-    let y = localStorage.getItem("n");
-    let z = localStorage.getItem("source1");
-    print(x)
-    print(y)
-    document.getElementById("pim").src=w; 
-    document.getElementById("category").innerHTML = x;
-    document.getElementById("name").innerHTML = y;
-    document.getElementById("pim1").src=z;
+    document.getElementById("pim").src = localStorage.getItem("source");
+    document.getElementById("category").innerHTML = localStorage.getItem("category");
+    document.getElementById("name").innerHTML = localStorage.getItem("name");
+    document.getElementById("price").innerHTML = "Rs. " + localStorage.getItem("price");
+    document.getElementById("pim1").src = localStorage.getItem("source1");
     });
  </script>
 {% endblock %}

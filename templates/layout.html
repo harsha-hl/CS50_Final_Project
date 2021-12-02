@@ -13,7 +13,7 @@
         <script src="/static/scripts.js"></script>
         <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css" rel="stylesheet">
 
-    
+        
 
     <title>H&A : {% block title %} {% endblock %}</title>
 </head>
@@ -30,7 +30,7 @@
           </div>
           <div class="collapse navbar-collapse" id="myNavbar">
             <ul class="nav navbar-nav">
-              <li><a href="#">Home</a></li>
+              <li><a href="/">Home</a></li>
 
             {% if session.user_id %}
             <li><a href="#">About</a></li>
@@ -48,11 +48,24 @@
             <li class="dropdown">
               <a class="dropdown-toggle" data-toggle="dropdown" href="#">Products<span class="caret"></span></a>
               <ul class="dropdown-menu" style="background-color: black;">
-                <li><a style="background-color: black;" href="#">Crocs</a></li>
-                <li><a style="background-color: black;" href="#">Sneakers</a></li>
-                <li><a style="background-color: black;" href="#">Sports Shoes</a></li>
+                <li>
+                  <form action="/" method="post">
+                  <button style="margin-top: 15px;" class="cat_button" type="submit" name="clicked_button1" value="Crocs">Crocs</button>
+                  </form>
+                </li>
+                <li>
+                  <form action="/" method="post">
+                  <button style="margin-top: 5px;" class="cat_button" type="submit" name="clicked_button1" value="Sneakers">Sneakers</button>
+                  </form>
+                </li>
+                <li>
+                  <form action="/" method="post">
+                  <button style="margin-top: 5px;" class="cat_button" type="submit" name="clicked_button1" value="Sports">Sports Shoes</button>
+                  </form>
+                </li>
               </ul>
             </li>
+            
             <li><a href="#">About</a></li>
             <li><a href="#">Help</a></li>
           </ul>
