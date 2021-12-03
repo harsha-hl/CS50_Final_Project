@@ -516,3 +516,48 @@ body{
 .cat_button:hover{
   color: white;
 }
+
+.box3{
+  background-color: black;
+  margin: 80px 20px;
+}
+
+.col-p{
+  flex: 1;
+  text-align: center;
+}
+
+.product{
+  transition: transform 0.5s;
+  padding: 0px 0px;
+  width: 335px;
+  height: 380px;
+  margin: 10px 0px;
+}
+
+.product:hover{
+  cursor: pointer;
+  transform: translateY(-10px);
+}
+
+
+
+.col-p3{
+  flex: 1; 
+  text-align: center;
+  padding: 5px;
+  min-width: 300px;
+  margin-bottom: 50px;
+  transition: transform 0.5s;
+}
+
+.col-p3 img{
+  width: 325px;
+  height: 380px;
+}
+
+.col-p3:hover{
+  transform: translateY(-10px);
+  cursor: pointer;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}

@@ -1,5 +1,6 @@
 import os
 import sys
+import random
 from cs50 import SQL
 from datetime import datetime
 from flask import Flask, flash, redirect, render_template, request, session, jsonify
@@ -7,7 +8,6 @@ from flask_session import Session
 from tempfile import mkdtemp
 from werkzeug.exceptions import default_exceptions, HTTPException, InternalServerError
 from werkzeug.security import check_password_hash, generate_password_hash
-
 from helpers import apology, login_required, rupee, name, cost
 
 # Configure application
@@ -15,7 +15,6 @@ app = Flask(__name__)
 
 # Ensure templates are auto-reloaded
 app.config["TEMPLATES_AUTO_RELOAD"] = True
-
 
 # Ensure responses aren't cached
 @app.after_request
@@ -25,12 +24,10 @@ def after_request(response):
     response.headers["Pragma"] = "no-cache"
     return response
 
-
 # Custom filter
 app.jinja_env.filters["rupee"] = rupee
 app.jinja_env.filters["name"] = name
 app.jinja_env.filters["cost"] = cost
-
 
 # Configure session to use filesystem (instead of signed cookies)
 app.config["SESSION_FILE_DIR"] = mkdtemp()
@@ -47,6 +44,7 @@ def index():
     if request.method == "GET":
         return render_template("index.html")
     else:
+        count = 0
         final_brand = None
         final_type = None
         shoe_type1 = None
@@ -56,13 +54,12 @@ def index():
         shoe_brand3 = None
         shoe_type1 = request.form.get("clicked_button1")
         shoe_type3 = request.form.get("clicked3")
-
         shoe_type2 = request.form.get("clicked2")
+
         if shoe_type2:
             shoe_brand2 = "Nike"
         elif shoe_type3:
             shoe_brand3 = "Adidas"
-
 
         if shoe_type1:
             final_type = shoe_type1
@@ -71,21 +68,31 @@ def index():
         elif shoe_type3:
             final_type = shoe_type3
 
-
         if shoe_brand2:
             final_brand = shoe_brand2
         if shoe_brand3:
             final_brand = shoe_brand3
 
+        shoead = db.execute("SELECT * FROM shoes WHERE type != ?","Crocs")
+        countad = db.execute("SELECT COUNT(name) FROM shoes WHERE type != ?","Crocs")
+
         if final_brand and final_type:
             shoes = db.execute("SELECT * FROM shoes WHERE type = ? AND brand = ?",final_type,final_brand)
+            count = db.execute("SELECT COUNT(name) FROM shoes WHERE type = ? AND brand = ?",final_type,final_brand)
+
         if final_brand and not final_type:
             shoes = db.execute("SELECT * FROM shoes WHERE brand = ?",final_brand)
+            count = db.execute("SELECT COUNT(name) FROM shoes WHERE brand = ?",final_brand)
+
         if final_type and not final_brand:
             shoes = db.execute("SELECT * FROM shoes WHERE type = ?",final_type)
+            count = db.execute("SELECT COUNT(name) FROM shoes WHERE type = ?",final_type)
 
-        return render_template("products.html", shoes = shoes)
+        print(count)
+        print(shoes)
 
+
+        return render_template("products.html", shoes = shoes, count = count[0]["COUNT(name)"], shoead = shoead, rando = random.randint(5,9), countad = countad[0]["COUNT(name)"])
 
 
 @app.route("/products", methods=["GET", "POST"])
@@ -111,7 +118,7 @@ def products():
     else:
         shoes = db.execute("SELECT * FROM shoes;")
         return render_template("products.html", shoes = shoes)
-        
+
 
 @app.route("/logout")
 def logout():
@@ -122,6 +129,7 @@ def logout():
 
     #Redirect user to login form
     return redirect("/")
+
 
 @app.route("/productpage", methods=["GET", "POST"])
 def productpage():
@@ -146,7 +154,6 @@ def signup():
         return redirect("/")
 
 
-
 @app.route("/login", methods=["GET", "POST"])
 def login():
     """Log user in"""
@@ -164,4 +171,3 @@ def login():
         return render_template("login.html")
         #Password doesnt match use return render_template("login.html",check = 2)
         #Invalid username use return render_template("login.html",check = 1)
-
