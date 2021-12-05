@@ -60,7 +60,6 @@ document.addEventListener("DOMContentLoaded", function(){
     images[i].addEventListener("click",function(){
       let tmp = images[i].getAttribute("src");
       localStorage.setItem("source", tmp);
-      console.log("hello")
       let cat ="";
       if(tmp.includes("nikeSneakers"))cat = "Nike / Sneakers";
       else if(tmp.includes("nikeSports"))cat = "Nike / Sports";

@@ -1,47 +1,171 @@
 {% extends "layout.html" %}
 
 {% block title %}
-    Product Details
+    Product Page
 {% endblock %}
 
 {% block main %}
-<div class="small-container" style="margin-top: 80px; margin-bottom: 20px;">
+<div class="small-container" style="margin-top: 100px; margin-bottom: 20px;">
     <div class="row">
-        <div class="col-2">
+        <div class="col-a">
             <img id="pim" src="#" width="100%">
-
         </div>
-        <div class="col-2">
-            <h4 id="category">Shoe</h4>
-            <h2 id="name">Brand</h2>
-            <h3 id="price"></h3>
+        <div class="col-a" style="padding-left: 5%;">
+            <h1 style="font-weight: 600; padding-left: 3%;" id="name">Brand</h1>
+            <h4 id="category" style="padding-left: 3%;  color: #6a6a6a;">Shoe</h4>
+            <h3 style="padding-left: 3%;" id="price" ></h3>
+            <h5 id="category" style="padding-left: 3%; padding-bottom: 10%; color: #6a6a6a;">incl. of taxes and duties</h5>
+            <div id = "myalert" class="alert alert-success collapse" >
+                <a id="linkClose" href="#" class="close">&times;</a>
+                <p id="mytext"></p>
+            </div>
+            <div id = "myalert1" class="alert alert-danger collapse" >
+                <a id="linkClose1" href="#" class="close">&times;</a>
+                <p id="mytext1"></p>
+            </div>
+
             <form action="/productpage" method="post">
-                <div class="form-group">
-                    <input autocomplete="off" autofocus class="form-control" name="username" placeholder="Username" type="text">
-                </div>
-                <div class="form-group">
-                    <input class="form-control" name="password" placeholder="Password" type="password">
-                </div>
-                <button class="btn btn-primary" type="submit">Log In</button>
+                
+                <h6 style="color: #6a6a6a;">UK / IND</h6>
+                  <label style="font-size: 18px;" for="sizes">Size : </label>
+                  <select style="padding: 5px 5px; width: 45px; border-radius: 10px; background-color: black; color: white;" name="size" id="sizes">
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                    <option value="11">11</option>
+                  </select>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                  <label style="font-size: 18px;" for="qnty">Nos : </label>
+                  <input style="color: white; padding: 5px 2px; border-radius: 10px; background-color: black; border-color: black;" id="qnty" name="qnty" placeholder="No." type="number" value="1" min="1" max="5">
+                    <button id="atoc" name="atoc" style="text-align: center;" class="Bton1" type="submit" value="atoc">Add to Cart</button>
+                    <br>
+                    <button id="bn" name="bn" style="text-align: center;" class="Bton2" type="submit" value="bn">Buy Now</button>
             </form>           
         </div>
     </div>
 </div>
 
 <div class="small-container">
+    <h3 style="padding-left: 5px; font-weight: lighter;">More pictures</h3>
+    <hr style="margin: 0 5px; size: 100px;"><br>
     <div class="row">
         <img id="pim1" src="#" width="100%">
-        <img src="{{path}}">
+        <!-- <img src="{{path}}"> -->
     </div>
 </div>
+<h2 style="padding-left: 30px; font-weight: lighter;">You May Also Like</h4>
+    <hr style="margin: 0 30px; size: 100px;">
+        <div class="slide">
+            {% for i in range(countad) %}
+                {% if i%rando == 0 %}
+                <div class="col-z">
+                <a href="/productpage"><img class="imagel" src="{{shoead[i]["name"]}}"></a>
+                <h4>{{ shoead[i]["name"] | name }}</h4>
+                <p>{{ shoead[i]["name"] | cost | rupee}}</p>
+                {% if i%5 == 0 %}
+                <div class="rating">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>             
+                    <i class="fas fa-star-half-alt"></i>
+                </div>
+                {% endif %}
+                {% if i%5 == 2 %}
+                <div class="rating">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i> 
+                    <i class="fas fa-star"></i>                         
+                    <i class="fas fa-star-half-alt"></i>
+                </div>
+                {% endif %}
+                {% if i%5 == 1 %}
+                <div class="rating">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i> 
+                    <i class="fas fa-star"></i>                         
+                    <i class="far fa-star"></i>
+                </div>
+                {% endif %}
+                {% if i%5 == 3 %}
+                <div class="rating">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>             
+                    <i class="fas fa-star-half-alt"></i>
+                    <i class="far fa-star"></i>
+                </div>
+                {% endif %}
+                {% if i%5 == 4 %}
+                <div class="rating">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>        
+                    <i class="fas fa-star"></i>             
+                    <i class="fas fa-star"></i>             
+                </div>
+                {% endif %}
+            </div>
+            {% endif %}
+            
+            {% endfor %}
 
+        </div>
 <script>
+        $(document).ready(function(){
+            $('#linkClose').click(function(){
+                $('#myalert').hide('fade');
+            });
+        });
+
+        if("{{check}}" == 1){
+                mytext.innerHTML = "<strong> &#10003; </strong> Your shoe has been added to cart!";
+                $('#myalert').show('fade');
+                setTimeout(function(){
+                    $('#myalert').hide('fade');
+                },3000);
+            }
+        else if("{{check}}" == 2){
+                mytext1.innerHTML = "<strong> Sorry ! </strong> This shoe is currently out of stock.";
+                $('#myalert1').show('fade');
+                setTimeout(function(){
+                    $('#myalert1').hide('fade');
+                },4000);
+            }
+        else if("{{check}}" == 3){
+                mytext1.innerHTML = "<strong> Sorry ! </strong> Lesser stock of shoes available.";
+                $('#myalert1').show('fade');
+                setTimeout(function(){
+                    $('#myalert1').hide('fade');
+                },4000);
+            }
+        else if("{{check}}" == 4){
+                mytext1.innerHTML = "<strong> Transaction failed </strong> due to insufficient balance.";
+                $('#myalert1').show('fade');
+                setTimeout(function(){
+                    $('#myalert1').hide('fade');
+                },4000);
+            }
+
+
+
+
+
    
     document.addEventListener("DOMContentLoaded",function(){
-    document.getElementById("pim").src = localStorage.getItem("source");
+    var source = localStorage.getItem("source");
+    document.getElementById("atoc").value = source;
+    document.getElementById("bn").value = source;
+    document.getElementById("pim").src = source; 
     document.getElementById("category").innerHTML = localStorage.getItem("category");
     document.getElementById("name").innerHTML = localStorage.getItem("name");
-    document.getElementById("price").innerHTML = "Rs. " + localStorage.getItem("price");
+    document.getElementById("price").innerHTML = "&#x20b9; " + localStorage.getItem("price") + ".00";
     document.getElementById("pim1").src = localStorage.getItem("source1");
     });
  </script>

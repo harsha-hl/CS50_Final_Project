@@ -2,23 +2,37 @@ from cs50 import SQL
 import random
 import os
 from string import capwords
+from helpers import cost
 
-db = SQL("sqlite:///shoes.db")
-Db = SQL("sqlite:///Shoes.db")
 
-directory = '/home/harsha/C/cs50/CS50_Final_Project/static/images/shoes/nikeSports'
-a = "/static/images/shoes/nikeSports/8777tiempo-legend-9-club-mg-multi-ground-football-boot.jpeg"
-a = (a.rpartition('/')[2]).rpartition('.')[0]
-b=""
-for i in a:
-    if i == '-' or i =='_':
-        b = b+" "
-    else:
-        b = b+i
-if b[4].isdigit():
-    print(capwords(b[5:]))
-else:
-    print(capwords(b[4:]))
+print(cost("/static/images/shoes/nikeSneakers/8555lebron-18-low-x-mimi-plange-daughters.jpg"))
+
+
+
+
+
+
+
+
+
+
+
+#db = SQL("sqlite:///shoes.db")
+#Db = SQL("sqlite:///Shoes.db")
+
+#directory = '/home/harsha/C/cs50/CS50_Final_Project/static/images/shoes/nikeSports'
+#a = "/static/images/shoes/nikeSports/8777tiempo-legend-9-club-mg-multi-ground-football-boot.jpeg"
+#a = (a.rpartition('/')[2]).rpartition('.')[0]
+#b=""
+#for i in a:
+ #   if i == '-' or i =='_':
+  #      b = b+" "
+   # else:
+   #     b = b+i
+#if b[4].isdigit():
+ #   print(capwords(b[5:]))
+#else:
+ #   print(capwords(b[4:]))
 
 #a = (a.rpartition('/')[2]).rpartition('.')[0]
 #if a[4].isdigit():

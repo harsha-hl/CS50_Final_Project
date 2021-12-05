@@ -436,20 +436,17 @@ body{
 /* LOGIN / SIGNUP */
 
 .account-page{
-  padding: 100px 0 50px 0;
-  background-position:  center;
-  background-size: cover;
-  background-image: url("/static/images/nike_abstract.png");
+  height: 130vh;
   width: 100%;
-  height: 1000px;
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.8)), url("/static/images/nike_abstract.png");
+  background-position: center;
+  background-size: cover;
   position: relative;
-  /*background: radial-gradient(#fff,#ffd6d6);*/
 }
 
 .form-container{
-  background: linear-gradient(-45deg, rgba(0,0,0,0.4)
-              0%, rgba(0,0,0,0.4) 25%, rgba(20, 81, 97, 0.6) 50%,
-              rgba(0,0,0,0.4) 75%, rgba(0, 0, 0, 0.4) 100%);
+  background: linear-gradient(
+-45deg, rgb(0 0 0) 0%, rgb(0 0 0 / 75%) 25%, rgb(0 0 0 / 0%) 50%, rgb(0 0 0 / 75%) 75%, rgb(0 0 0) 100%);
   width: 300px;
   height: 400px;
   position: relative;
@@ -479,7 +476,7 @@ body{
   bottom: -7px;
   left: 50%;
   transform: translateX(-50%);
-  background: rgb(74, 166, 189);
+  background: rgb(250, 162, 0);
   transition: width 0.3s;
 }
 
@@ -491,21 +488,8 @@ body{
   padding-bottom: 50px;
 }
 
-.form-container input{
-  margin-bottom: 20px;
-  background-color: rgb(255, 255, 255);
-  border-radius: 5px;
-  border-color: transparent;
-  outline: none;
-  color: rgb(0, 0, 0);
-}
-.form-container input:hover{
-  background-color: rgb(196, 201, 202);
-}
-::placeholder {
-  color: rgb(14, 13, 13);
-  opacity: 0.4;
-}
+
+
 .cat_button{
   font-size: 20px;
   background-color: black;
@@ -560,4 +544,74 @@ body{
   transform: translateY(-10px);
   cursor: pointer;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.badges{
+  flex: 1;
+  box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  color: rgb(255, 255, 255);
+  font-size: 20px;
+  font-weight: 600;
+  border-radius: 30px;
+  margin: 0px 5px;
+  text-align: center;
+  width: 100px;
+  height: 66px;
+  transition: transform 0.5s;
+}
+
+.badges:hover{
+  transform: translateY(-10px);
+  cursor: pointer;
+}
+
+.pass{
+  margin-bottom: 20px;
+  padding: 3px 10px;
+  border: 2px solid #1a1a1a;
+  outline: none;
+  color: rgb(250, 162, 0);
+  background: transparent;
+}
+
+.col-a{
+  flex: 1;
+  min-width: 300px;
+}
+
+.col-a img{
+  max-width: 100%;
+  padding-top: 0px;
+}
+
+.Bton2{
+  border: 1px solid #aaaaaa;
+  cursor: pointer;
+  background: white;
+  font-size: 16px;
+  color: black;
+  padding: 3.5% 39%;
+  border-radius: 30px;
+  margin-top: 15px;
+}
+
+.Bton2:hover{
+  border: 1px solid rgb(224, 224, 224);
+  background: rgb(224, 224, 224);
+}
+
+.Bton1{
+  border: 1px solid black;
+  cursor: pointer;
+  background: black;
+  font-size: 16px;
+  color: white;
+  padding: 3.5% 39%;
+  border-radius: 30px;
+  margin-top: 15px;
+}
+
+.Bton1:hover{
+  border: 1px solid #252525;
+  background: #252525;
 }

@@ -10,14 +10,14 @@
     <div class="container">
         <div class="row">
             <div class="col-2"  style="flex: 1;">
-                <div class="form-container">
+                <div style="margin-top: 100px;" class="form-container">
                     <div class="form-btn">
                         <a href="/signup" style="text-decoration: none;"><span style="padding-right: 30px; color: white; font-size: 20px;">Sign Up</span></a>
                         <a href="/login" style="text-decoration: none;"><span class="under2" style="font-weight: lighter;font-size: 30px;">Login</span></a>
                     </div>
-                    <form name = "sign" onsubmit="return checkform()" action = "/signup" method = "post">
-                        <input autocomplete="off" autofocus name="username" placeholder="Username" type="text">
-                        <input name="password" placeholder="Password" type="password"><br>
+                    <form name = "sign" onsubmit="return checkform()" action = "/login" method = "post">
+                        <input class="pass" autocomplete="off" autofocus name="username" placeholder="Username" type="text">
+                        <input class="pass" name="password" placeholder="Password" type="password"><br>
                         <p style="color: #60adc5;">New to <span class="ha">H&A</span> ?<br><a style = "color: #60adc5; text-decoration: none;" href = "/signup">Sign Up now!</a></p>
                         <button style="margin-top: 10px; color: white !important; background-color:black !important; border-radius: 5px !important; padding: 8px 100px;" class="btn" type="submit">LOG IN</button>                
                     </form>

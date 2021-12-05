@@ -9,6 +9,8 @@ from tempfile import mkdtemp
 from werkzeug.exceptions import default_exceptions, HTTPException, InternalServerError
 from werkzeug.security import check_password_hash, generate_password_hash
 from helpers import apology, login_required, rupee, name, cost
+from datetime import datetime
+
 
 # Configure application
 app = Flask(__name__)
@@ -52,9 +54,17 @@ def index():
         shoe_brand2 = None
         shoe_type3 = None
         shoe_brand3 = None
+        jump = None
         shoe_type1 = request.form.get("clicked_button1")
         shoe_type3 = request.form.get("clicked3")
         shoe_type2 = request.form.get("clicked2")
+        jump =  request.form.get("jump")
+
+        shoead = db.execute("SELECT * FROM shoes WHERE type != ?","Crocs")
+        countad = db.execute("SELECT COUNT(name) FROM shoes WHERE type != ?","Crocs")
+
+        if jump:
+            return render_template("productpage.html", shoead = shoead, rando = random.randint(5,9), countad = countad[0]["COUNT(name)"])
 
         if shoe_type2:
             shoe_brand2 = "Nike"
@@ -73,8 +83,15 @@ def index():
         if shoe_brand3:
             final_brand = shoe_brand3
 
-        shoead = db.execute("SELECT * FROM shoes WHERE type != ?","Crocs")
-        countad = db.execute("SELECT COUNT(name) FROM shoes WHERE type != ?","Crocs")
+        if shoe_type2 == "Nike":
+            final_type = None
+            final_brand = "Nike"
+
+        elif shoe_type2 == "Adidas":
+            final_type = None
+            final_brand = "Adidas"
+
+        
 
         if final_brand and final_type:
             shoes = db.execute("SELECT * FROM shoes WHERE type = ? AND brand = ?",final_type,final_brand)
@@ -88,36 +105,7 @@ def index():
             shoes = db.execute("SELECT * FROM shoes WHERE type = ?",final_type)
             count = db.execute("SELECT COUNT(name) FROM shoes WHERE type = ?",final_type)
 
-        print(count)
-        print(shoes)
-
-
-        return render_template("products.html", shoes = shoes, count = count[0]["COUNT(name)"], shoead = shoead, rando = random.randint(5,9), countad = countad[0]["COUNT(name)"])
-
-
-@app.route("/products", methods=["GET", "POST"])
-def products():
-    """Show products of website"""
-    if request.method == "POST":
-        data = {}    # empty dict to store data
-        x = request.json['title']
-        data['release_date'] = request.json['movie_release_date']
-
-       #do whatever you want with the data here e.g look up in database or something
-       # if you want to print to console
-
-        print(x)
-        print("\n\n\n\n\n\n\n")
-
-        # then return something back to frontend on success
-        shoes = db.execute("SELECT * FROM shoes;")
-        return render_template("products.html", shoes = shoes)
-        # this returns back received data and you should see it in browser console
-        # because of the console.log() in the script.
-        return jsonify(data)
-    else:
-        shoes = db.execute("SELECT * FROM shoes;")
-        return render_template("products.html", shoes = shoes)
+        return render_template("products.html", shoes = shoes, count = count[0]["COUNT(name)"], shoead = shoead, rando = random.randint(5,9), countad = int(countad[0]["COUNT(name)"]))
 
 
 @app.route("/logout")
@@ -132,12 +120,96 @@ def logout():
 
 
 @app.route("/productpage", methods=["GET", "POST"])
+@login_required
 def productpage():
     if request.method == "POST":
-        return render_template("productpage.html")
+        atoc = request.form.get("atoc")
+        bn = request.form.get("bn")
+        size  = int(request.form.get("size"))
+        qnty = int(request.form.get("qnty"))
+        shoead = db.execute("SELECT * FROM shoes WHERE type != ?","Crocs")
+        countad = db.execute("SELECT COUNT(name) FROM shoes WHERE type != ?","Crocs")
+        if atoc:
+            rows = db.execute("SELECT * FROM shoes WHERE name = ?", atoc)
+            if rows[0]["qnty"] == 0:
+                return render_template("productpage.html", shoead = shoead, rando = random.randint(5,9), countad = int(countad[0]["COUNT(name)"]), check = 2)
+            
+            elif qnty > rows[0]["qnty"]:
+                return render_template("productpage.html", shoead = shoead, rando = random.randint(5,9), countad = int(countad[0]["COUNT(name)"]), check = 3)
+            
+            else:
+                rows[0]["qnty"] = rows[0]["qnty"] - qnty
+                sum = cost(atoc) * qnty
+                db.execute("UPDATE shoes SET qnty = ? WHERE name = ?", rows[0]["qnty"], atoc)
+                rows1 = db.execute("SELECT * FROM cart WHERE u_id = ? AND shoe_id = ? AND size = ?", session["user_id"], rows[0]["s_id"], size)
+                if len(rows1) != 0:
+                    rows1[0]["num"] = rows1[0]["num"] + qnty
+                    rows1[0]["sum"] = rows1[0]["sum"] + sum
+                    db.execute("UPDATE cart SET num = ?, sum = ? WHERE u_id = ? AND shoe_id = ? AND size = ?", rows1[0]["num"], rows1[0]["sum"], session["user_id"], rows[0]["s_id"], size)
+                else:
+                    db.execute("INSERT INTO cart (u_id, shoe_id, num, size, sname, sum) VALUES(?, ?, ?, ?, ?, ?)", session["user_id"], rows[0]["s_id"], qnty, size, atoc, sum)
+                return render_template("productpage.html", shoead = shoead, rando = random.randint(5,9), countad = int(countad[0]["COUNT(name)"]), check = 1)
+        else:
+            rows = db.execute("SELECT * FROM shoes WHERE name = ?", bn)
+            if rows[0]["qnty"] == 0:
+                return render_template("productpage.html", shoead = shoead, rando = random.randint(5,9), countad = int(countad[0]["COUNT(name)"]), check = 2)
+            
+            elif qnty > rows[0]["qnty"]:
+                return render_template("productpage.html", shoead = shoead, rando = random.randint(5,9), countad = int(countad[0]["COUNT(name)"]), check = 3)
+            
+            else:
+                sum = cost(bn) * qnty
+                rows1 = db.execute("SELECT * FROM users WHERE id = ?", session["user_id"])
+                if rows1[0]["cash"] < sum:
+                    return render_template("productpage.html", shoead = shoead, rando = random.randint(5,9), countad = int(countad[0]["COUNT(name)"]), check = 4)
+                rows1[0]["cash"] = rows1[0]["cash"] - sum
+                db.execute("UPDATE users SET cash = ? WHERE id = ?", rows1[0]["cash"], session["user_id"])
+                db.execute("INSERT INTO orders (user_id, shoe_name, s_num, size, bill, time) VALUES(?, ?, ?, ?, ?, ?)", session["user_id"], bn, qnty, size, sum,  datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
+                orders = db.execute("SELECT * FROM orders WHERE user_id = ?", session["user_id"])
+                cart = db.execute("SELECT * FROM cart WHERE u_id = ?", session["user_id"])
+                return render_template("cartorders.html", orders = orders, cart = cart)
     else:
-        print("\n\n\n\n\n\n\n")
-        return render_template("productpage.html", path = "/static/images/shoes/adidasSneakers/8679Dame_7_EXTPLY_Shoes_White.jpg")
+        return render_template("productpage.html")
+
+@app.route("/cartorders", methods=["GET", "POST"])
+@login_required
+def cartorders():
+    orders = db.execute("SELECT * FROM orders WHERE user_id = ?", session["user_id"])
+    cart = db.execute("SELECT * FROM cart WHERE u_id = ?", session["user_id"])
+    if request.method == "GET":
+        return render_template("cartorders.html", orders = orders, cart = cart, check = 0)
+
+    else:
+        clear = request.form.get("clear")
+        buy = request.form.get("buy")
+        add = request.form.get("add")
+        amt = request.form.get("amt")
+
+        if clear:
+            db.execute("DELETE FROM cart WHERE u_id = ?", session["user_id"])
+            cart = db.execute("SELECT * FROM cart WHERE u_id = ?", session["user_id"])
+            return render_template("cartorders.html", orders = orders, cart = cart, check = 1)
+        elif buy:
+            total = db.execute("SELECT SUM(sum) FROM cart WHERE u_id = ?", session["user_id"])
+            rows = db.execute("SELECT * FROM users WHERE id = ?", session["user_id"])
+
+            if total > rows[0]["cash"]:
+                return render_template("cartorders.html", orders = orders, cart = cart, check = -1)
+            else:
+                cart1 = cart
+                rows[0]["cash"] = rows[0]["cash"] - total
+                db.execute("UPDATE users SET cash = ? WHERE id = ?", rows[0]["cash"], session["user_id"])
+                for shoe in cart1:
+                    db.execute("INSERT INTO orders (user_id, shoe_name, s_num, size, bill, time) VALUES(?, ?, ?, ?, ?, ?)", session["user_id"], shoe["sname"], shoe["num"], shoe["size"], shoe["sum"],  datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
+                    db.execute("DELETE FROM cart WHERE u_id = ? AND shoe_id = ? AND size = ?", session["user_id"], shoe["shoe_id"], shoe["size"])
+                orders = db.execute("SELECT * FROM orders WHERE user_id = ?", session["user_id"])
+                cart = db.execute("SELECT * FROM cart WHERE u_id = ?", session["user_id"])
+                return render_template("cartorders.html", orders = orders, cart = cart)
+        elif add:
+            rows = db.execute("SELECT * FROM users WHERE id = ?", session["user_id"])
+            rows[0]["cash"] = rows[0]["cash"] + amt
+            db.execute("UPDATE users SET cash = ? WHERE id = ?", rows[0]["cash"], session["user_id"])
+            return render_template("cartorders.html", orders = orders, cart = cart)
 
 
 @app.route("/signup", methods = ["GET", "POST"])
@@ -145,12 +217,17 @@ def signup():
     """Register user"""
 
     if request.method == "GET":
-        print("HIIIIIIIIIIIIIIIIIII")
         return render_template("signup.html")
 
     else:
         username = request.form.get("username")
-        #if username already taken then use return render_template("signup.html",check = 1)
+        rows = db.execute("SELECT * FROM users WHERE username = ?", username)
+        if len(rows) != 0:
+            return render_template("signup.html",check = 1)
+        password = request.form.get("password")
+        db.execute("INSERT INTO users (username, hash) VALUES(?, ?)", username, generate_password_hash(password))
+        rows = db.execute("SELECT * FROM users WHERE username = ?", username)
+        session["user_id"] = rows[0]["id"]
         return redirect("/")
 
 
@@ -163,6 +240,17 @@ def login():
 
     # User reached route via POST (as by submitting a form via POST)
     if request.method == "POST":
+        username = request.form.get("username")
+        password = request.form.get("password")
+        rows = db.execute("SELECT * FROM users WHERE username = ?", username)
+        if len(rows) != 1:
+            return render_template("login.html", check = 1)
+
+        if not check_password_hash(rows[0]["hash"],password):
+            return render_template("login.html", check = 2)
+
+        session["user_id"] = rows[0]["id"]
+
         # Redirect user to home page
         return redirect("/")
 

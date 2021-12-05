@@ -10,7 +10,7 @@
         <div class="text-box">
             <h1>FIND YOUR<br>FAST</h1>
             <form action="/" method="post">
-                <button style="margin-top: 5px;" class="bton sports" type="submit" name="clicked_button1" value="Sports">Explore Now &#10132;</button>
+                <button style="margin-top: 5px;" class="bton" type="submit" name="clicked_button1" value="Sports">Explore Now &#10132;</button>
             </form>
         </div>  
     </div>
@@ -51,13 +51,17 @@
         <button  style="border: none; background-color: white; width: 100%; min-height: 200px;" type="submit" name="clicked2" value="Sports"><img src="/static/images/nike-just-do-it.jpg"></button>
     </form>
     <h1 style="text-align: center; color: #000; font-weight: bolder;">FAST RUNS IN THE FAMILY</h4>
-    <p style="text-align: center;"><a href="#" style="color: white !important; background-color:black !important;" class="bton">Shop &#10132;</a></p>
+    <form action="/" method="post" style="text-align: center;">
+        <button style="margin-top: 5px;" class="bton " type="submit" name="clicked_button1" value="Sports">Shop &#10132;</button>
+    </form>
 </div>
 <h2 style="padding-left: 30px; font-weight: lighter;">Trending</h4>
 <hr style="margin: 0 30px; size: 100px;">
     <div class="slide">
     <div class="col-z">
-        <a href="/productpage"><img class="imagel" src="/static/images/shoes/nikeSneakers/8555lebron-18-low-x-mimi-plange-daughters.jpg"></a>
+        <form action="/" method="post">
+            <button style="border: none; background-color: transparent;" type="submit" name="jump" value="jump"><img class="imagel" src="/static/images/shoes/nikeSneakers/8555lebron-18-low-x-mimi-plange-daughters.jpg"></button>
+        </form>
         <h4>{{"/static/images/shoes/nikeSneakers/8555lebron-18-low-x-mimi-plange-daughters.jpg" | name }}</h4>
         <p>{{"/static/images/shoes/nikeSneakers/8555lebron-18-low-x-mimi-plange-daughters.jpg" | cost | rupee}}</p>
         <div class="rating">
@@ -69,9 +73,11 @@
         </div>
     </div>
     <div class="col-z">
-        <a href="/productpage"><img class="imagel" src="/static/images/shoes/nikeSneakers/8888air-zoom-gtrun-basketball-shoes.jpeg"></a>
-        <h4>Product Name</h4>
-        <p>{{1000 | rupee}}</p>
+        <form action="/" method="post">
+            <button style="border: none; background-color: transparent;" type="submit" name="jump" value="jump"><img class="imagel" src="/static/images/shoes/nikeSneakers/8888air-zoom-gtrun-basketball-shoes.jpeg"></button>
+        </form>
+        <h4>{{"/static/images/shoes/nikeSneakers/8888air-zoom-gtrun-basketball-shoes.jpeg" | name}}</h4>
+        <p>{{"/static/images/shoes/nikeSneakers/8888air-zoom-gtrun-basketball-shoes.jpeg" | cost | rupee}}</p>
         <div class="rating">
             <i class="fas fa-star"></i>
             <i class="fas fa-star"></i>
