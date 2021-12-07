@@ -63,9 +63,11 @@
             {% for i in range(countad) %}
                 {% if i%rando == 0 %}
                 <div class="col-z">
-                <a href="/productpage"><img class="imagel" src="{{shoead[i]["name"]}}"></a>
-                <h4>{{ shoead[i]["name"] | name }}</h4>
-                <p>{{ shoead[i]["name"] | cost | rupee}}</p>
+                    <form action="/" method="post">
+                        <button style="border: none; background-color: transparent;" type="submit" name="jump" value="jump"><img class="imagel cusize2" src="{{shoead[i]["name"]}}"></button>
+                    </form>
+                    <h4>{{shoead[i]["name"] | name }}</h4>
+                    <p>{{shoead[i]["name"] | cost | rupee}}</p>
                 {% if i%5 == 0 %}
                 <div class="rating">
                     <i class="fas fa-star"></i>
@@ -121,6 +123,11 @@
         $(document).ready(function(){
             $('#linkClose').click(function(){
                 $('#myalert').hide('fade');
+            });
+        });
+        $(document).ready(function(){
+            $('#linkClose1').click(function(){
+                $('#myalert1').hide('fade');
             });
         });
 

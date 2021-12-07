@@ -615,3 +615,163 @@ body{
   border: 1px solid #252525;
   background: #252525;
 }
+
+
+
+.cartbox{
+  flex: 1;
+  border-radius: 20px;
+  margin: 15px 5px;
+  box-shadow: 0 4px 5px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  background-color: #ffffff;
+  transition: transform 0.5s;
+}
+
+.cartbox:hover{
+  cursor: pointer;
+  transform: translateX(15px);
+  background-color: #f6f6f6;
+}
+
+.cartbox img{
+  width: 160px;
+  height: 180px;
+}
+
+.subcol1{
+  flex-basis: 25%;
+}
+.subcol2{
+flex-basis: 75%; 
+}
+
+@media (max-width:500px){
+  .subcol1{
+    flex-basis: 50%;
+  }
+  .subcol2{
+  flex-basis: 50%; 
+  }
+  .subcol2 h2{
+    font-size: 15px;
+  }
+}
+
+@media (min-width:500px){
+  .subcol1{
+    flex-basis: 25%;
+  }
+  .subcol2{
+  flex-basis: 75%; 
+  }
+}
+
+@media (max-width:500px){
+  .cartbox{
+    min-width: 300px;
+  }
+}
+
+@media (min-width:500px){
+  .cartbox{
+    min-width: 500px;
+  }
+}
+
+.row1{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+.colc1{
+  flex: 1;
+}
+.colc2{
+  flex: 1;
+}
+
+
+
+@media (min-width:500px){
+  .colc1{
+    flex-basis: 65%;
+  }
+  .colc2{
+  flex-basis: 35%; 
+  }
+}
+.Bton3{
+  border: transparent;
+  cursor: pointer;
+  background: rgb(111, 23, 23);
+  font-size: 10px;
+  color: white;
+  padding: 1% 6%;
+}
+
+.Bton3:hover{
+  background: #252525;
+}
+
+.transactions{
+    margin: 20px 0 20px 0;
+    box-shadow: 0 4px 5px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    overflow-x: auto;
+    border-radius: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 15px;
+    padding-right: 15px;
+    text-align: center;
+    width: 90%;
+}
+
+.section {
+  padding-bottom: 1rem;
+  padding-left: 2rem;
+  padding-right: 2rem;
+  padding-top: 0.5rem;
+}
+
+
+table {
+  background-color: transparent;
+  margin-bottom: 1rem;
+  width: 100%;
+}
+
+table th,
+table td {
+  padding: 0.75rem;
+  vertical-align: middle;
+}
+
+tbody tr:nth-of-type(odd) {
+  background-color: white;
+  margin-top: 10px;
+}
+
+
+tbody tr:nth-of-type(even) {
+  background-color: rgb(224, 224, 224, 0.7);
+  margin-top: 10px;
+}
+
+.white{
+  background-color: white !important;
+}
+
+.cusize{
+  width: 268px !important;
+  height: 335px !important;
+}
+
+.cusize1{
+  width: 245px !important;
+  height: 290.5px !important;
+}
+
+.cusize2{
+  width: 280px !important;
+  height: 310px !important;
+}

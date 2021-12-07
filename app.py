@@ -167,7 +167,12 @@ def productpage():
                 db.execute("INSERT INTO orders (user_id, shoe_name, s_num, size, bill, time) VALUES(?, ?, ?, ?, ?, ?)", session["user_id"], bn, qnty, size, sum,  datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
                 orders = db.execute("SELECT * FROM orders WHERE user_id = ?", session["user_id"])
                 cart = db.execute("SELECT * FROM cart WHERE u_id = ?", session["user_id"])
-                return render_template("cartorders.html", orders = orders, cart = cart)
+                total = db.execute("SELECT SUM(sum) FROM cart WHERE u_id = ?", session["user_id"])
+                count = db.execute("SELECT SUM(num) FROM cart WHERE u_id = ?", session["user_id"])
+                if not total[0]["SUM(sum)"]:
+                    return render_template("cartorders.html", orders = orders, cart = cart, check = 4, total = 0, count = 0, balance = rows1[0]["cash"] )
+                else:
+                    return render_template("cartorders.html", orders = orders, cart = cart, check = 4, total = int(total[0]["SUM(sum)"]), count = int(count[0]["SUM(num)"]), balance = rows1[0]["cash"] )
     else:
         return render_template("productpage.html")
 
@@ -176,41 +181,62 @@ def productpage():
 def cartorders():
     orders = db.execute("SELECT * FROM orders WHERE user_id = ?", session["user_id"])
     cart = db.execute("SELECT * FROM cart WHERE u_id = ?", session["user_id"])
+    row = db.execute("SELECT * FROM users WHERE id = ?", session["user_id"])
+    total = db.execute("SELECT SUM(sum) FROM cart WHERE u_id = ?", session["user_id"])
+    count = db.execute("SELECT SUM(num) FROM cart WHERE u_id = ?", session["user_id"])
     if request.method == "GET":
-        return render_template("cartorders.html", orders = orders, cart = cart, check = 0)
+        if total[0]["SUM(sum)"]:
+            return render_template("cartorders.html", orders = orders, cart = cart, check = 0, total = int(total[0]["SUM(sum)"]), count = int(count[0]["SUM(num)"]), balance = row[0]["cash"])
+        else: 
+            return render_template("cartorders.html", orders = orders, cart = cart, check = 0, total = 0, count = 0, balance = row[0]["cash"])
 
     else:
         clear = request.form.get("clear")
+        shoe_del = request.form.get("remove")
         buy = request.form.get("buy")
         add = request.form.get("add")
         amt = request.form.get("amt")
+        if amt:
+            amt = int(amt)
 
         if clear:
             db.execute("DELETE FROM cart WHERE u_id = ?", session["user_id"])
             cart = db.execute("SELECT * FROM cart WHERE u_id = ?", session["user_id"])
-            return render_template("cartorders.html", orders = orders, cart = cart, check = 1)
+            return render_template("cartorders.html", orders = orders, cart = cart, check = 1, total = 0, count = 0, balance = row[0]["cash"])
         elif buy:
             total = db.execute("SELECT SUM(sum) FROM cart WHERE u_id = ?", session["user_id"])
             rows = db.execute("SELECT * FROM users WHERE id = ?", session["user_id"])
 
-            if total > rows[0]["cash"]:
-                return render_template("cartorders.html", orders = orders, cart = cart, check = -1)
+            if not total[0]["SUM(sum)"]:
+                return render_template("cartorders.html", orders = orders, cart = cart, check = 2, total = 0, count = 0, balance = row[0]["cash"])
+
+            elif int(total[0]["SUM(sum)"]) > rows[0]["cash"]:
+                return render_template("cartorders.html", orders = orders, cart = cart, check = 3, total = int(total[0]["SUM(sum)"]), count = int(count[0]["SUM(num)"]), balance = rows[0]["cash"])
             else:
                 cart1 = cart
-                rows[0]["cash"] = rows[0]["cash"] - total
+                rows[0]["cash"] = rows[0]["cash"] - int(total[0]["SUM(sum)"])
                 db.execute("UPDATE users SET cash = ? WHERE id = ?", rows[0]["cash"], session["user_id"])
                 for shoe in cart1:
                     db.execute("INSERT INTO orders (user_id, shoe_name, s_num, size, bill, time) VALUES(?, ?, ?, ?, ?, ?)", session["user_id"], shoe["sname"], shoe["num"], shoe["size"], shoe["sum"],  datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
                     db.execute("DELETE FROM cart WHERE u_id = ? AND shoe_id = ? AND size = ?", session["user_id"], shoe["shoe_id"], shoe["size"])
                 orders = db.execute("SELECT * FROM orders WHERE user_id = ?", session["user_id"])
                 cart = db.execute("SELECT * FROM cart WHERE u_id = ?", session["user_id"])
-                return render_template("cartorders.html", orders = orders, cart = cart)
+                return render_template("cartorders.html", orders = orders, cart = cart, check = 4,total = 0, count = 0, balance = rows[0]["cash"])
         elif add:
             rows = db.execute("SELECT * FROM users WHERE id = ?", session["user_id"])
             rows[0]["cash"] = rows[0]["cash"] + amt
             db.execute("UPDATE users SET cash = ? WHERE id = ?", rows[0]["cash"], session["user_id"])
-            return render_template("cartorders.html", orders = orders, cart = cart)
-
+            return render_template("cartorders.html", orders = orders, cart = cart, check = 5, total = int(total[0]["SUM(sum)"]), count = int(count[0]["SUM(num)"]), balance = rows[0]["cash"])
+        
+        elif shoe_del:
+            db.execute("DELETE FROM cart WHERE u_id = ? AND shoe_id = ?", session["user_id"], shoe_del)
+            cart = db.execute("SELECT * FROM cart WHERE u_id = ?", session["user_id"])
+            total = db.execute("SELECT SUM(sum) FROM cart WHERE u_id = ?", session["user_id"])
+            count = db.execute("SELECT SUM(num) FROM cart WHERE u_id = ?", session["user_id"])
+            if not total[0]["SUM(sum)"]:
+                return render_template("cartorders.html", orders = orders, cart = cart, check = 6, total = 0, count = 0, balance = row[0]["cash"])
+            else:
+                return render_template("cartorders.html", orders = orders, cart = cart, check = 6, total = int(total[0]["SUM(sum)"]), count = int(count[0]["SUM(num)"]), balance = row[0]["cash"])
 
 @app.route("/signup", methods = ["GET", "POST"])
 def signup():
@@ -257,5 +283,3 @@ def login():
     # User reached route via GET (as by clicking a link or via redirect)
     else:
         return render_template("login.html")
-        #Password doesnt match use return render_template("login.html",check = 2)
-        #Invalid username use return render_template("login.html",check = 1)

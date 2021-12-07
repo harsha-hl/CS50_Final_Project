@@ -5,14 +5,147 @@
 {% endblock %}
 
 {% block main %}
-<p style="margin-top: 80px;">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corporis exercitationem quidem possimus molestiae ipsam quas. Dolor, architecto, ab et, maiores temporibus accusantium laudantium eius accusamus hic velit harum repellat qui.
-    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Molestiae quia sed impedit quasi laboriosam velit illum nulla quo sint deserunt! Odio consequatur dolores obcaecati veniam corporis omnis exercitationem ipsum. Provident!        
-    Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptatibus sunt est quisquam similique impedit id? Non laudantium error ducimus adipisci fuga corrupti natus reiciendis nihil qui esse, perferendis magnam nisi!
-    Lorem ipsum dolor sit amet consectetur adipisicing elit. Itaque ratione vel expedita. Architecto nesciunt blanditiis harum. Non delectus cupiditate aliquid aperiam impedit provident harum, enim quae modi laudantium, voluptatum doloribus.
-    Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci nemo eaque assumenda enim, repudiandae earum provident nesciunt, laboriosam ad asperiores obcaecati reiciendis ratione facilis at vel ducimus tempore, nam quia?
-</p>
-{{ orders }}
-{{ cart[0] }}
-<h1> hello</h1>
+    <div class="row" style="margin: 80px 20px 20px 20px; ">
+        
+        <div class="colc1">
+            {% if total==0 %}
+                <h2 style="text-align: center;">Cart Empty :(<br>Shop Now!!</h2>
+            {% else %}
+            {% for shoe in cart %}
+            <div class="cartbox" >
+                <div class="row1">
+                    <div class="subcol1" >
+                        <img src="{{ shoe["sname"] }}" >
+                    </div>
+                    <div class="subcol2">
+                        <h2>{{ shoe["sname"] | name }}</h2>
+                        <strong>Quantity</strong> : {{ shoe["num"]}}<br>
+                        <strong>Size</strong> : {{ shoe["size"]}}<br>
+                        <form action="/cartorders" method="post">
+                            <strong>Amount</strong> : {{ shoe["sum"] | rupee }} 
+                            <button name="remove" style="font-size: 12px; text-align: center; margin-left: 30%;" class="Bton3" type="submit" value="{{ shoe["shoe_id"] }}">Remove</button>
+                        </form>
+                    </div>
+                </div>
+                
+            </div>
+         {% endfor %}
+         {% endif %}
+        </div>
+        <div class="colc2">
+            <h1 style="text-align: center;">CART</h2>
+            <hr style="margin: 5px 30px; size: 100px;">
+            <p style="padding: 10px 30px;font-size: 30px; text-align: center;">Number of shoes : {{count}}</p>
+            <p style="padding: 10px 30px;font-size: 30px; text-align: center;">Total bill amount : {{total | rupee}}</p>
+            <form action="/cartorders" method="post">
+                <button name="clear" style="margin: 5px 0 0 10px;text-align: center; border-radius: 0;" class="Bton1" type="submit" value="clear">Clear Cart</button>
+                <br>
+                <button name="buy" style="margin: 15px 15px;text-align: center; border-radius: 0;" class="Bton2" type="submit" value="buy">Checkout</button>                   
+            </form>
+            <hr style="margin: 5px 30px; size: 100px;">
+            <div style="margin: 5px 30px;" id = "myalert" class="alert alert-success collapse" >
+                <a id="linkClose" href="#" class="close">&times;</a>
+                <p id="mytext"></p>
+            </div>
+            <div style="margin: 5px 30px;" id = "myalert1" class="alert alert-danger collapse" >
+                <a id="linkClose1" href="#" class="close">&times;</a>
+                <p id="mytext1"></p>
+            </div>
+            <form action="/cartorders" method="post">
+                <p style="padding: 10px 30px;font-size: 20px;">Your balance: {{ balance | rupee }}<br>Insufficient balance?<br>Add money to your <span class="ha">H&A</span> wallet to continue shopping!</p>
+                <input style="color: black; margin-left: 30px; padding: 5px 2px;background-color: rgb(224, 224, 224); border-color: rgb(224, 224, 224);" name="amt" placeholder="Amount" type="number" value="0" min="0">
+                <button name="add" style="margin-left: 30px; text-align: center;" class="Bton2" type="submit" value="buy">Add</button>                   
+            </form>
+        </div>
+    </div>
+    
+    <hr style="margin: 5px 30px; size: 100px; border: 1px solid rgb(216, 216, 216);">
+    <h1 style="text-align: center;">Your Orders</h1>
+    <hr style="margin: 5px 30px; size: 100px; border: 1px solid rgb(216, 216, 216);">
+
+    <div class="transactions">
+        <div class="section">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Shoe</th>
+                        <th>Shoe Name</th>
+                        <th>Nos.</th>
+                        <th>Shoe Size</th>
+                        <th>Bill</th>
+                        <th>Time</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for order in orders %}
+                    <tr>
+                        <td class="white"><img width="80px" height="90px" src="{{ order["shoe_name"] }}"></td>
+                        <td>{{ order["shoe_name"] | name }}</td>
+                        <td>{{ order["s_num"] }}</td>
+                        <td>{{ order["size"] }}</td>
+                        <td>{{ order["bill"] | rupee }}</td>
+                        <td>{{ order["time"] }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+<script>
+    $(document).ready(function(){
+        $('#linkClose').click(function(){
+            $('#myalert').hide('fade');
+        });
+    });
+    $(document).ready(function(){
+            $('#linkClose1').click(function(){
+                $('#myalert1').hide('fade');
+            });
+        });
+
+    if("{{check}}" == 1){
+            mytext.innerHTML = "<strong> &#10003; </strong> Cart cleared!";
+            $('#myalert').show('fade');
+            setTimeout(function(){
+                $('#myalert').hide('fade');
+            },3000);
+        }
+    else if("{{check}}" == 2){
+            mytext1.innerHTML = "<strong> Sorry ! </strong> Cart is empty.";
+            $('#myalert1').show('fade');
+            setTimeout(function(){
+                $('#myalert1').hide('fade');
+            },4000);
+        }
+    else if("{{check}}" == 3){
+            mytext1.innerHTML = "<strong> Sorry ! </strong> Insufficient balance to make payment.";
+            $('#myalert1').show('fade');
+            setTimeout(function(){
+                $('#myalert1').hide('fade');
+            },4000);
+        }
+    else if("{{check}}" == 4){
+            mytext.innerHTML = "<strong> &#10003; </strong> Payment succesful!";
+            $('#myalert').show('fade');
+            setTimeout(function(){
+                $('#myalert').hide('fade');
+            },3000);
+        }
+    else if("{{check}}" == 5){
+            mytext.innerHTML = "<strong> &#10003; </strong> Money added to wallet.";
+            $('#myalert').show('fade');
+            setTimeout(function(){
+                $('#myalert').hide('fade');
+            },3000);
+        }
+    else if("{{check}}" == 6){
+            mytext.innerHTML = "<strong> &#10003; </strong> Shoes removed from cart.";
+            $('#myalert').show('fade');
+            setTimeout(function(){
+                $('#myalert').hide('fade');
+            },3000);
+        }
+</script>
 
 {% endblock %}
