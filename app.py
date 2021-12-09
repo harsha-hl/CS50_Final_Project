@@ -226,8 +226,11 @@ def cartorders():
             rows = db.execute("SELECT * FROM users WHERE id = ?", session["user_id"])
             rows[0]["cash"] = rows[0]["cash"] + amt
             db.execute("UPDATE users SET cash = ? WHERE id = ?", rows[0]["cash"], session["user_id"])
-            return render_template("cartorders.html", orders = orders, cart = cart, check = 5, total = int(total[0]["SUM(sum)"]), count = int(count[0]["SUM(num)"]), balance = rows[0]["cash"])
-        
+            if total[0]["SUM(sum)"]:
+                return render_template("cartorders.html", orders = orders, cart = cart, check = 5, total = int(total[0]["SUM(sum)"]), count = int(count[0]["SUM(num)"]), balance = rows[0]["cash"])
+            else:
+                return render_template("cartorders.html", orders = orders, cart = cart, check = 5, total = 0, count = 0, balance = rows[0]["cash"])
+
         elif shoe_del:
             db.execute("DELETE FROM cart WHERE u_id = ? AND shoe_id = ?", session["user_id"], shoe_del)
             cart = db.execute("SELECT * FROM cart WHERE u_id = ?", session["user_id"])
