@@ -202,6 +202,13 @@ def cartorders():
             amt = int(amt)
 
         if clear:
+            shoeS = db.execute("SELECT * FROM cart WHERE u_id = ?", session["user_id"])
+            
+            for Shoe in shoeS:
+                select = db.execute("SELECT * FROM shoes WHERE s_id = ?", Shoe["shoe_id"])
+                select[0]["qnty"] = select[0]["qnty"] + Shoe["num"]
+                db.execute("UPDATE shoes SET qnty = ? WHERE s_id = ?", select[0]["qnty"], Shoe["shoe_id"])
+
             db.execute("DELETE FROM cart WHERE u_id = ?", session["user_id"])
             cart = db.execute("SELECT * FROM cart WHERE u_id = ?", session["user_id"])
             return render_template("cartorders.html", orders = orders, cart = cart, check = 1, total = 0, count = 0, balance = row[0]["cash"])
@@ -234,6 +241,10 @@ def cartorders():
                 return render_template("cartorders.html", orders = orders, cart = cart, check = 5, total = 0, count = 0, balance = rows[0]["cash"])
 
         elif shoe_del:
+            shoeS = db.execute("SELECT * FROM cart WHERE u_id = ? AND shoe_id = ?", session["user_id"], shoe_del)
+            Shoe = db.execute("SELECT * FROM shoes WHERE s_id = ?", shoe_del)
+            Shoe[0]["qnty"] = Shoe[0]["qnty"] + shoeS[0]["num"]
+            db.execute("UPDATE shoes SET qnty = ? WHERE s_id = ?", Shoe[0]["qnty"], shoe_del)
             db.execute("DELETE FROM cart WHERE u_id = ? AND shoe_id = ?", session["user_id"], shoe_del)
             cart = db.execute("SELECT * FROM cart WHERE u_id = ?", session["user_id"])
             total = db.execute("SELECT SUM(sum) FROM cart WHERE u_id = ?", session["user_id"])
