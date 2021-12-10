@@ -160,9 +160,11 @@ def productpage():
             else:
                 sum = cost(bn) * qnty
                 rows1 = db.execute("SELECT * FROM users WHERE id = ?", session["user_id"])
+                rows[0]["qnty"] = rows[0]["qnty"] - qnty
                 if rows1[0]["cash"] < sum:
                     return render_template("productpage.html", shoead = shoead, rando = random.randint(5,9), countad = int(countad[0]["COUNT(name)"]), check = 4)
                 rows1[0]["cash"] = rows1[0]["cash"] - sum
+                db.execute("UPDATE shoes SET qnty = ? WHERE name = ?", rows[0]["qnty"], bn)
                 db.execute("UPDATE users SET cash = ? WHERE id = ?", rows1[0]["cash"], session["user_id"])
                 db.execute("INSERT INTO orders (user_id, shoe_name, s_num, size, bill, time) VALUES(?, ?, ?, ?, ?, ?)", session["user_id"], bn, qnty, size, sum,  datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
                 orders = db.execute("SELECT * FROM orders WHERE user_id = ?", session["user_id"])
