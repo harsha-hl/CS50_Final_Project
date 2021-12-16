@@ -5,6 +5,7 @@
 ![Homepage](static/images/1.jpg)
 
 #### Video Demo : https://youtu.be/3nKVNjm8UB4
+#### Video Demo [FULL] : https://youtu.be/S-KLovJGv9Q
 
 ## Introduction
   This *H&A* Shopping website is a web based application that is designed using the [Flask](https://flask.palletsprojects.com/en/2.0.x/) framework. It basically mimics a shopping site(inspired by *h&m* fashion) where users can register, login, and buy fashion products(shoes in this case). The application follows a **Model - View - Controller** design pattern having components developed using Flask (ie Python for back-end), SQL database to act as the model and finally the front-end developed using html css and javascript with the help of frameworks like Bootsrap 4 and more.
