@@ -1,6 +1,8 @@
 # *H&A* Shopping Web Application
 
 ## This is my final project for Harvard's CS50x : Introduction to Computer Science course.
+
+## Website hosted on ----> (https://cs50-project-app.herokuapp.com)
  
 ![Homepage](static/images/Homepage.png)
 
