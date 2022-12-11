@@ -5,6 +5,9 @@
 ## Website hosted on ----> (https://cs50-project-app.herokuapp.com)
  
 ![Homepage](static/images/Homepage.png)
+<img src="static/landing.gif">
+<img src="static/landing1.gif">
+<img src="static/3.gif">
 
 #### Video Demo : https://youtu.be/3nKVNjm8UB4
 #### Video Demo [FULL] : https://youtu.be/S-KLovJGv9Q
