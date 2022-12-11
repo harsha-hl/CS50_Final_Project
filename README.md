@@ -4,10 +4,7 @@
 
 ## Website hosted on ----> (https://cs50-project-app.herokuapp.com)
  
-![Homepage](static/images/Homepage.png)
-<img src="static/landing.gif">
-<img src="static/landing1.gif">
-<img src="static/3.gif">
+<p align="center"><img src="static/landing.gif"/></p>
 
 #### Video Demo : https://youtu.be/3nKVNjm8UB4
 #### Video Demo [FULL] : https://youtu.be/S-KLovJGv9Q
@@ -18,8 +15,10 @@
 ## Model
   For the model, I have used a Structured Query Language or SQL database named ```Shoes.db```. It is a relational database management system consisting of 4 tables namely shoes, users, cart and orders. These tables and their respective fields can be viewed using the command ```.schema``` under sqlite3 (an example). Every user and shoe being unique have their own ids which act as primary keys and these keys are referenced to by the foreign keys in tables cart and orders so as to facilitate easy data management across tables.
   
- ![UI2](static/images/ui2.png)
- ![UI1](static/images/ui.png)
+<p align="center"><img src="static/2.gif"/></p>
+
+<p align="center"><img src="static/3.gif"/></p>
+
  ![UI8](static/images/ui8.png)
 
 
@@ -27,6 +26,7 @@
   The above images will give you a glimpse of the application / site which a user will be exposed to. Most of the components, hover effects, transisitons and gradients have been implemented using plain css and javascript with html combining the two to make the webpages. Also certain features like navigation bars and alerts have been designed using Bootstrap 4. The user will be able to view products by category and brand, add them to cart, review the prices, select the size and number of pairs they wish to order and also mimic a payment showing the completion of transaction. They will also be able to view their cart items and order history at any given moment. Each of the many webpages present extend a ```layout.html``` file present in the templates folder. This is made possible by using [Jinja](https://jinja.palletsprojects.com/en/3.0.x/), a fast and expressive, extensible templating engine. The images and logos used across the website have been stored in the static folder which also includes other static files such as a video, ```styles.css``` and ```scripts.js``` .
 
 ![UI3](static/images/ui3.png)
+
 ![UI4](static/images/ui4.png)
   
 ## Controller
@@ -34,6 +34,10 @@ Python language has been used for implementing the backend. The files app.py and
   
  ![Signup](static/images/ui9.png)
   
+<p align="center"><img src="static/4.gif"/></p>
+
+<p align="center"><img src="static/5.gif"/></p>
+
  ## More on Flask
   As mentioned earlier, the framework implies the use of a certain structure of directory / file listing as shown below:
 1. ```static/``` contains all the static files like css, javascript files, images and videos.
